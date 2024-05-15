@@ -1,0 +1,17 @@
+metricsRelistInterval: 15s
+prometheus:
+  url: http://prometheus.monitoring.svc
+  port: 9090
+rules:
+  custom:
+    - seriesQuery: "custom_metric"
+      resources:
+        overrides:
+          kubernetes_namespace:
+            resource: namespace
+          kubernetes_pod_name:
+            resource: pod
+      name:
+        matches: "^(.*)"
+        as: "${1}"
+      metricsQuery: <<.Series>>{<<.LabelMatchers>>}

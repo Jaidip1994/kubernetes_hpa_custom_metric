@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: jaidip1994/app:latest
+          imagePullPolicy: IfNotPresent # Prefer local image
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "20m" # Lower limit for easier scale-up
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

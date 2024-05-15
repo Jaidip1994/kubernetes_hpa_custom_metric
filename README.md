@@ -1,3 +1,5 @@
+https://gist.github.com/Jaidip1994/e4a363fd61864368d21281c481d50b8a
+
 # Intro
 Prometheus metrics can be used in order to horizontally autoscale the number of pods (HPA) of a
 k8s cluster. A sample application exposing custom metrics in `/metrics` can scale in/out according
